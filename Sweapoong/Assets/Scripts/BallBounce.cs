@@ -26,6 +26,8 @@ public class BallBounce : MonoBehaviour
 	public float speedMultiplier = 3.0f;
 	float currentSpeed;
 
+	//Player possesion
+	public int possesion = 0;
 
 	// Use this for initialization
 	void Start () 
@@ -37,6 +39,7 @@ public class BallBounce : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		//Debug.Log ("lala " + rb.velocity.magnitude);
 		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began) 
 		{
 			Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
@@ -77,5 +80,10 @@ public class BallBounce : MonoBehaviour
 		}
 
 		
+	}
+	public float GetVelocity () 
+	{
+		return rb.velocity.magnitude;
+
 	}
 }
