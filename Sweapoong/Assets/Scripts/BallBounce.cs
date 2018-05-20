@@ -18,6 +18,8 @@ public class BallBounce : MonoBehaviour
 	float touchTimeInterval;
 	bool isTouched = false;
 
+	//Player possesion
+	public int possesion = 0;
 
 	// Use this for initialization
 	void Start () 
@@ -29,6 +31,7 @@ public class BallBounce : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		//Debug.Log ("lala " + rb.velocity.magnitude);
 		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began) 
 		{
 			
@@ -62,5 +65,10 @@ public class BallBounce : MonoBehaviour
 		}
 
 		
+	}
+	public float GetVelocity () 
+	{
+		return rb.velocity.magnitude;
+
 	}
 }
