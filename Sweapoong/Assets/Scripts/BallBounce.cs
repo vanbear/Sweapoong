@@ -22,13 +22,16 @@ public class BallBounce : MonoBehaviour
 	float touchTimeInterval;
 	bool isTouched = false;
 
-	float startSpeed = 300.0f;
+	public float startSpeed = 300.0f;
 	public float speedMultiplier = 3.0f;
 	float currentSpeed;
 
 	//Player possesion and current area
 	public int possesion = 0;
 	public int currentArea = 0;
+
+	Color m_Red = new Color(255,0,0);
+	Color m_Blue = new Color(0,0,255);
 
 	// Use this for initialization
 	void Start () 
@@ -41,7 +44,7 @@ public class BallBounce : MonoBehaviour
 	void Update () 
 	{
 		//Debug.Log ("lala " + rb.velocity.magnitude);
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began) 
+		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began && possesion!= currentArea) 
 		{
 			Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 			if (boxCollider.OverlapPoint(wp))
@@ -52,11 +55,16 @@ public class BallBounce : MonoBehaviour
 				isTouched = true;
 				touchTimeStart = Time.time;
 				startPos = Input.GetTouch (0).position;
+				possesion = currentArea;
+				if (possesion == 1)
+					this.gameObject.GetComponent<SpriteRenderer> ().color = m_Blue;
+				else
+					this.gameObject.GetComponent<SpriteRenderer> ().color = m_Red;
 			}
 		}
 
 
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true && possesion!= currentArea) 
+		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true ) 
 		{
 
 			touchTimeEnd = Time.time;
@@ -77,7 +85,7 @@ public class BallBounce : MonoBehaviour
 
 
 			isTouched = false;
-			possesion = currentArea;
+
 
 		}
 
