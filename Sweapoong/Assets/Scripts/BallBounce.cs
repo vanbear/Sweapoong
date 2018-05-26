@@ -26,8 +26,9 @@ public class BallBounce : MonoBehaviour
 	public float speedMultiplier = 3.0f;
 	float currentSpeed;
 
-	//Player possesion
+	//Player possesion and current area
 	public int possesion = 0;
+	public int currentArea = 0;
 
 	// Use this for initialization
 	void Start () 
@@ -47,7 +48,7 @@ public class BallBounce : MonoBehaviour
 			{
 				//your code
 				rb.velocity = Vector2.zero; // stop ball when touched
-				Debug.Log ("Ball touched.");
+				//Debug.Log ("Ball touched.");
 				isTouched = true;
 				touchTimeStart = Time.time;
 				startPos = Input.GetTouch (0).position;
@@ -55,7 +56,7 @@ public class BallBounce : MonoBehaviour
 		}
 
 
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true) 
+		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true && possesion!= currentArea) 
 		{
 
 			touchTimeEnd = Time.time;
@@ -69,18 +70,36 @@ public class BallBounce : MonoBehaviour
 
 			// add speed
 			currentSpeed += speedMultiplier*(Mathf.Log(currentSpeed,2));
-			Debug.Log ("Current speed: "+currentSpeed);
+			//Debug.Log ("Current speed: "+currentSpeed);
 
 			// add force to ball
 			GetComponent<Rigidbody2D> ().AddForce (-direction * currentSpeed, ForceMode2D.Impulse);
 
 
 			isTouched = false;
+			possesion = currentArea;
 
 		}
 
 		
 	}
+
+
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (col.gameObject.tag == "Area1") 
+		{
+			currentArea = 1;
+		}
+		if (col.gameObject.tag == "Area2") 
+		{
+			currentArea = 2;
+		}
+		Debug.Log ("Possesion :" + possesion);
+		Debug.Log ("Current area :" + currentArea);
+	}
+
 	public float GetVelocity () 
 	{
 		return rb.velocity.magnitude;
