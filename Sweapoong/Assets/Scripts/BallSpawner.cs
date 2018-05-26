@@ -29,7 +29,7 @@ public class BallSpawner : MonoBehaviour
 	{
 		
 
-		if(healthbar1.GetComponent<PlayerWallCollision>().health1 <= 0 || healthbar1.GetComponent<PlayerWallCollision>().health1 <= 0) 
+		if(healthbar1.GetComponent<PlayerWallCollision>().health1 <= 0 || healthbar1.GetComponent<PlayerWallCollision>().health2 <= 0) 
 		{
 			Destroy(ball);
 			ball = Instantiate (Resources.Load ("ball"), new Vector2 (0, 0), Quaternion.identity) as GameObject;
@@ -40,6 +40,16 @@ public class BallSpawner : MonoBehaviour
 			ball.GetComponent<Rigidbody2D>().AddForce(direction,ForceMode2D.Impulse); 
 
 		}
+		if(healthbar2.GetComponent<PlayerWallCollision>().health1 <= 0 || healthbar2.GetComponent<PlayerWallCollision>().health2 <= 0) 
+		{
+			Destroy(ball);
+			ball = Instantiate (Resources.Load ("ball"), new Vector2 (0, 0), Quaternion.identity) as GameObject;
+			ball.gameObject.tag = "Ball";
+			ball.name = "ball";
 
+			// initiation impulse doesnt work 
+			ball.GetComponent<Rigidbody2D>().AddForce(direction,ForceMode2D.Impulse); 
+
+		}
 	}
 }
