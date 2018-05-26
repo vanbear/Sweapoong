@@ -463,8 +463,8 @@ PlayerSettings:
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Build: 1
-    Collab: 1
+    Build: 0
+    Collab: 0
     UNet: 1
   cloudProjectId: eb663430-76db-4e2a-a95c-11636612621c
   projectName: Sweapoong (1)
