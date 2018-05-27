@@ -31,28 +31,26 @@ public class PlayerWallCollision : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		
+
 		if (col.gameObject.tag == "Ball" && col.gameObject.GetComponent<BallBounce>().possesion == 2 && this.gameObject.tag == "WallDown" && col.gameObject.GetComponent<BallBounce> ().possesion != 0)
 		{
-			Debug.Log ("Player" +player.ToString()+ "wall was hit");
+			//Debug.Log ("Player " +player.ToString()+ "wall was hit");
 			health1 -= 10 + (int)col.gameObject.GetComponent<BallBounce> ().GetVelocity();
 
 			healthbar1.GetComponent<Image> ().fillAmount = (float)health1/100;
 			//healthbar.fillAmount = health / 1000;
-
-
-
+			col.gameObject.GetComponent<BallBounce> ().slowDown (1.5f);
+			col.gameObject.GetComponent<BallBounce> ().changePossesion (1);
 		}
 		if (col.gameObject.tag == "Ball" && col.gameObject.GetComponent<BallBounce> ().possesion == 1 && this.gameObject.tag == "WallUp" && col.gameObject.GetComponent<BallBounce> ().possesion != 0)
 		{
-
-			Debug.Log ("Player" +player.ToString()+ "wall was hit");
+			//Debug.Log ("Player " +player.ToString()+ "wall was hit");
 			health2 -= 10 + (int)col.gameObject.GetComponent<BallBounce> ().GetVelocity();
 
 			healthbar2.GetComponent<Image> ().fillAmount = (float)health2/100;
 			//healthbar.fillAmount = health / 1000;
-
-
+			col.gameObject.GetComponent<BallBounce> ().slowDown (1.5f);
+			col.gameObject.GetComponent<BallBounce> ().changePossesion (2);
 		}
 	}
 }

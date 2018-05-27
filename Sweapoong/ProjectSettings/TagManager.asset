@@ -9,6 +9,7 @@ TagManager:
   - WallDown
   - Area1
   - Area2
+  - Canvas
   layers:
   - Default
   - TransparentFX
