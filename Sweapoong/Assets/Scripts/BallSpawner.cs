@@ -5,24 +5,16 @@ using UnityEngine.UI;
 
 public class BallSpawner : MonoBehaviour 
 {
+	// get game objects
 	public GameObject ball;
-	public Vector2 direction; // vector containing ball launching direction
 	public GameObject wallUp;
 	public GameObject wallDown;
 	public GameObject healthBar1;
 	public GameObject healthBar2;
-	float startSpeed;
+	float startSpeed; // ball speed at the start of the round
 
-	void createBall()
-	{
-		ball = Instantiate (Resources.Load ("ball"), new Vector2 (0, 0), Quaternion.identity) as GameObject;
-
-		startSpeed = ball.GetComponent<BallBounce> ().startSpeed;
-
-		ball.gameObject.tag = "Ball";
-		ball.name = "ball";
-		ball.GetComponent<Rigidbody2D> ().AddForce(direction.normalized*startSpeed,ForceMode2D.Impulse);
-	}
+	// countdown
+	bool gameIsRunning = false;
 
 	// Use this for initialization
 	void Start () 
@@ -32,39 +24,114 @@ public class BallSpawner : MonoBehaviour
 		healthBar1 = GameObject.Find ("Health1");
 		healthBar2 = GameObject.Find ("Health2");
 
-		// select random direction (up or down) to launch a ball
-		if (Random.Range (0, 2) == 1) // down
-		{
-			direction [0] = Random.Range (-120, 120);
-			direction [1] = -180;
-			Debug.Log ("Dół "+direction);
-		} 
-		else //up
-		{	
-			direction [0] = Random.Range (-120, 120);
-			direction [1] = 180;
-			Debug.Log ("Góra "+direction);
-		}
-
-		createBall ();
-			
+		// start countdown
+		StartCoroutine(Countdown(3));
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		// check and update health bars
+		checkHealthStatus ();
 
+	}
+
+	void createBall()
+	{
+		// create ball object
+		ball = Instantiate (Resources.Load ("ball"), new Vector2 (0, 0), Quaternion.identity) as GameObject;
+		// set its tags
+		ball.gameObject.tag = "Ball";
+		ball.name = "ball";
+	}
+
+	void moveBall(Vector2 direction)
+	{
+		// get ball's starting speed
+		startSpeed = ball.GetComponent<BallBounce> ().startSpeed;
+		// move the ball in given direction
+		ball.GetComponent<Rigidbody2D> ().AddForce(direction*startSpeed,ForceMode2D.Impulse);
+	}
+
+	// checks health status and restarts the game if smbd ded
+	void checkHealthStatus()
+	{
 		if(PlayerWallCollision.health1 <= 0 || PlayerWallCollision.health2 <= 0) 
 		{
+			// refill health and update healthbars
 			PlayerWallCollision.health1 = 100;
 			PlayerWallCollision.health2 = 100;
 			healthBar1.GetComponent<Image> ().fillAmount = 1.0f;
 			healthBar2.GetComponent<Image> ().fillAmount = 1.0f;
-			Destroy(ball);
-			createBall ();
 
+			// destroy ball and start a countdown to start the game again
+			Destroy(ball);
+			gameIsRunning = false;
+			StartCoroutine(Countdown(3));
+		}
+	}
+
+	// returns a random normalized direction 
+	Vector2 getRandomDirection()
+	{
+		Vector2 direction = new Vector2();
+		// select random direction (up or down) and an angle to launch the ball
+		if (Random.Range (0, 2) == 1) // down
+		{
+			direction [0] = Random.Range (-120, 120);
+			direction [1] = -180;
+			//Debug.Log ("Dół "+direction);
+		} 
+		else //up
+		{	
+			direction [0] = Random.Range (-120, 120);
+			direction [1] = 180;
+			//Debug.Log ("Góra "+direction);
+		}
+		return direction.normalized;
+	}
+		
+	IEnumerator Countdown(int seconds)
+	{
+		// create objects displaying countdown numbers and put then on Canvas
+		GameObject countdown1 = Instantiate(Resources.Load("CountdownUI"), new Vector2(0,-360), Quaternion.identity) as GameObject;
+		countdown1.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
+		GameObject countdown2 = Instantiate(Resources.Load("CountdownUI"), new Vector2(0,360), new Quaternion(0,0,180,0)) as GameObject;
+		countdown2.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
+
+		// get a random direction to draw arrow and move ball after countdown
+		Vector2 dir = getRandomDirection ();
+
+		// create a line renderer to draw an arrow
+		/*GameObject myLine = new GameObject ();
+		myLine.transform.position = new Vector2 (0, 0);
+		myLine.AddComponent<LineRenderer> ();
+		LineRenderer lr = myLine.GetComponent<LineRenderer> ();
+		lr.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
+		lr.material = new Material (Shader.Find ("Particles/Additive (Soft)"));
+		lr.SetColors (new Color(1,1,1), new Color(1,1,1));
+		lr.SetWidth (.05f, .05f);
+		lr.SetPosition (0, new Vector2 (0, 0));
+		lr.SetPosition (1, dir/2.5f);*/
+
+		// create a ball, obviously
+		createBall();
+
+		// counting loop
+		int count = seconds;
+		while (count > 0) {
+			yield return new WaitForSeconds(1);
+			count --;
+			//Debug.Log("Countdown: "+count);
 		}
 
+		// count down is finished...
+		// destroy countdown objects and arrow
+		Destroy(countdown1);
+		Destroy (countdown2);
+		//Destroy (myLine);
+		// and move the ball
+		moveBall(dir);
+		gameIsRunning = true;
 	}
 }

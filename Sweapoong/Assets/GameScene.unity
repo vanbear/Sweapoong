@@ -529,8 +529,6 @@ MonoBehaviour:
   Ball: {fileID: 1903418411960384, guid: d3c1baa9636077047881a06c95ec2afe, type: 2}
   healthbar1: {fileID: 0}
   healthbar2: {fileID: 0}
-  health1: 100
-  health2: 100
 --- !u!50 &551738607
 Rigidbody2D:
   serializedVersion: 4
@@ -651,8 +649,6 @@ MonoBehaviour:
   Ball: {fileID: 1903418411960384, guid: d3c1baa9636077047881a06c95ec2afe, type: 2}
   healthbar1: {fileID: 0}
   healthbar2: {fileID: 0}
-  health1: 100
-  health2: 100
 --- !u!50 &756077171
 Rigidbody2D:
   serializedVersion: 4
@@ -1046,9 +1042,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 0}
-  direction: {x: 0, y: 0}
-  healthbar1: {fileID: 0}
-  healthbar2: {fileID: 0}
+  wallUp: {fileID: 0}
+  wallDown: {fileID: 0}
+  healthBar1: {fileID: 0}
+  healthBar2: {fileID: 0}
 --- !u!4 &1431382206
 Transform:
   m_ObjectHideFlags: 0
@@ -1075,7 +1072,7 @@ GameObject:
   - component: {fileID: 1474155081}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
