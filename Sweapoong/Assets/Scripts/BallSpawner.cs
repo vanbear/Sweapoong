@@ -102,17 +102,11 @@ public class BallSpawner : MonoBehaviour
 		// get a random direction to draw arrow and move ball after countdown
 		Vector2 dir = getRandomDirection ();
 
-		// create a line renderer to draw an arrow
-		/*GameObject myLine = new GameObject ();
-		myLine.transform.position = new Vector2 (0, 0);
-		myLine.AddComponent<LineRenderer> ();
-		LineRenderer lr = myLine.GetComponent<LineRenderer> ();
-		lr.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false);
-		lr.material = new Material (Shader.Find ("Particles/Additive (Soft)"));
-		lr.SetColors (new Color(1,1,1), new Color(1,1,1));
-		lr.SetWidth (.05f, .05f);
-		lr.SetPosition (0, new Vector2 (0, 0));
-		lr.SetPosition (1, dir/2.5f);*/
+		// create arrow
+		GameObject arrow = Instantiate(Resources.Load("ArrowUI"), new Vector2(0,0)+(dir*60), Quaternion.identity) as GameObject; //dir is multiplied to move the arrow away from the center
+		arrow.transform.SetParent (GameObject.FindGameObjectWithTag ("Canvas").transform, false); //set its parent to Canvas
+		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg; // get angle to point
+		arrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); // rotate
 
 		// create a ball, obviously
 		createBall();
@@ -129,7 +123,7 @@ public class BallSpawner : MonoBehaviour
 		// destroy countdown objects and arrow
 		Destroy(countdown1);
 		Destroy (countdown2);
-		//Destroy (myLine);
+		Destroy (arrow);
 		// and move the ball
 		moveBall(dir);
 		gameIsRunning = true;
