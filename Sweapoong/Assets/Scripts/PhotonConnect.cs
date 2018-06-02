@@ -10,7 +10,7 @@ public class PhotonConnect : Photon.PunBehaviour
 
 	void Start()
 	{
-		//PhotonNetwork.automaticallySyncScene = true;
+		PhotonNetwork.automaticallySyncScene = true;
 		PhotonNetwork.playerName = "Player" + Random.Range (1000, 9999).ToString();
 
 	}
