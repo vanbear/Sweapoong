@@ -39,7 +39,7 @@ public class PlayerWallCollision : Photon.MonoBehaviour
 
 			healthbar1.GetComponent<Image> ().fillAmount = (float)health1/100;
 			//healthbar.fillAmount = health / 1000;
-			col.gameObject.GetComponent<BallBounce> ().slowDown (1.5f);
+			col.gameObject.GetComponent<BallBounce> ().view.RPC("slowDown",PhotonTargets.All, 1.5f);
 			col.gameObject.GetComponent<BallBounce> ().view.RPC("changePossesion",PhotonTargets.All, 1);
 		}
 		if (col.gameObject.tag == "Ball" && col.gameObject.GetComponent<BallBounce> ().possesion == 1 && this.gameObject.tag == "WallUp" && col.gameObject.GetComponent<BallBounce> ().possesion != 0)
@@ -49,7 +49,7 @@ public class PlayerWallCollision : Photon.MonoBehaviour
 
 			healthbar2.GetComponent<Image> ().fillAmount = (float)health2/100;
 			//healthbar.fillAmount = health / 1000;
-			col.gameObject.GetComponent<BallBounce> ().slowDown (1.5f);
+			col.gameObject.GetComponent<BallBounce> ().view.RPC("slowDown",PhotonTargets.All, 1.5f);
 			col.gameObject.GetComponent<BallBounce> ().view.RPC("changePossesion",PhotonTargets.All, 2);
 		}
 	}
