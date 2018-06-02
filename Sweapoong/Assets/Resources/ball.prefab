@@ -136,10 +136,10 @@ MonoBehaviour:
   m_PositionModel:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
+    TeleportIfDistanceGreaterThan: 1
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 5
+    InterpolateLerpSpeed: 30
     InterpolateMoveTowardsAcceleration: 2
     InterpolateMoveTowardsDeceleration: 2
     InterpolateSpeedCurve:
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
+  m_SynchronizeAngularVelocity: 0
 --- !u!114 &114961207143112348
 MonoBehaviour:
   m_ObjectHideFlags: 1
