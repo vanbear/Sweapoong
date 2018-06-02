@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerWallCollision : MonoBehaviour 
+public class PlayerWallCollision : Photon.MonoBehaviour 
 {
 	
 	public int player;

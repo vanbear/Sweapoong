@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallBounce : MonoBehaviour 
+public class BallBounce : Photon.MonoBehaviour 
 {
 
 	// MODULES
 	public Rigidbody2D rb;
 	public BoxCollider2D boxCollider;
 	public CircleCollider2D circleCollider;
+	public PhotonView view;
 
 	// VALUES
 	public float force;
@@ -39,45 +40,51 @@ public class BallBounce : MonoBehaviour
 		//rb.AddForce (new Vector2 (force, force));
 		currentSpeed = startSpeed;
 	}
-	
+	private void Awake()
+	{
+		view = GetComponent<PhotonView> ();
+	}
 	// Update is called once per frame
 	void Update () 
 	{
 		//Debug.Log ("lala " + rb.velocity.magnitude);
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began && possesion!= currentArea) 
-		{
-			Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-			if (boxCollider.OverlapPoint(wp))
+
+			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began && possesion!= currentArea) 
 			{
-				//your code
-				rb.velocity = Vector2.zero; // stop ball when touched
-				//Debug.Log ("Ball touched.");
-				isTouched = true;
-				startPos = Input.GetTouch (0).position;
-				changePossesion (currentArea);
+				Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+				if (boxCollider.OverlapPoint(wp))
+				{
+					//your code
+					rb.velocity = Vector2.zero; // stop ball when touched
+					//Debug.Log ("Ball touched.");
+					isTouched = true;
+					startPos = Input.GetTouch (0).position;
+					changePossesion (currentArea);
+				}
 			}
-		}
 
 
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true ) 
-		{
-			// get touch position
-			endPos = Input.GetTouch (0).position;
+			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true ) 
+			{
+				// get touch position
+				endPos = Input.GetTouch (0).position;
 
-			// get swipe direction and normalize
-			direction = startPos - endPos;
-			direction = direction.normalized;
+				// get swipe direction and normalize
+				direction = startPos - endPos;
+				direction = direction.normalized;
 
-			// add speed
-			currentSpeed = Mathf.Clamp(currentSpeed + speedMultiplier*(Mathf.Log(currentSpeed,2)),startSpeed,maxSpeed);
-			//Debug.Log ("Current speed: "+currentSpeed);
+				// add speed
+				currentSpeed = Mathf.Clamp(currentSpeed + speedMultiplier*(Mathf.Log(currentSpeed,2)),startSpeed,maxSpeed);
+				//Debug.Log ("Current speed: "+currentSpeed);
 
-			// add force to ball
-			GetComponent<Rigidbody2D> ().AddForce (-direction * currentSpeed, ForceMode2D.Impulse);
+				// add force to ball
+				GetComponent<Rigidbody2D> ().AddForce (-direction * currentSpeed, ForceMode2D.Impulse);
 
 
-			isTouched = false;
-		}
+				isTouched = false;
+			}
+
+
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -98,10 +105,16 @@ public class BallBounce : MonoBehaviour
 	{
 		//Debug.Log ("Toggle possesion");
 		possesion = target;
-		if (possesion == 1)
+		if (possesion == 1) 
+		{
 			this.gameObject.GetComponent<SpriteRenderer> ().color = m_Blue;
+
+		} 
 		else
+		{
 			this.gameObject.GetComponent<SpriteRenderer> ().color = m_Red;
+		}
+			
 	}
 
 	public float GetVelocity () 

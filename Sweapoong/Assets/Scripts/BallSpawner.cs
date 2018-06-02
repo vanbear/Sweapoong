@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BallSpawner : MonoBehaviour 
+public class BallSpawner : Photon.MonoBehaviour 
 {
 	// get game objects
 	public GameObject ball;
@@ -39,7 +39,7 @@ public class BallSpawner : MonoBehaviour
 	void createBall()
 	{
 		// create ball object
-		ball = Instantiate (Resources.Load ("ball"), new Vector2 (0, 0), Quaternion.identity) as GameObject;
+		ball = PhotonNetwork.Instantiate ("ball", new Vector2(0,0), Quaternion.identity,0) ;
 		// set its tags
 		ball.gameObject.tag = "Ball";
 		ball.name = "ball";
