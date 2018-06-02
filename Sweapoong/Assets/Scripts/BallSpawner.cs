@@ -39,7 +39,7 @@ public class BallSpawner : Photon.MonoBehaviour
 	void createBall()
 	{
 		// create ball object
-		ball = PhotonNetwork.Instantiate ("ball", new Vector2(0,0), Quaternion.identity,0) ;
+		ball = PhotonNetwork.InstantiateSceneObject ("ball", new Vector2(0,0), Quaternion.identity, 0, null) as GameObject ;
 		// set its tags
 		ball.gameObject.tag = "Ball";
 		ball.name = "ball";
