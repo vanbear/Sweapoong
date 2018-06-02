@@ -10,7 +10,7 @@ public class PhotonConnect : Photon.PunBehaviour
 
 	void Start()
 	{
-		PhotonNetwork.automaticallySyncScene = true;
+		//PhotonNetwork.automaticallySyncScene = true;
 		PhotonNetwork.playerName = "Player" + Random.Range (1000, 9999).ToString();
 
 	}
@@ -53,15 +53,15 @@ public class PhotonConnect : Photon.PunBehaviour
 	{
 		Debug.Log("Joined a room");
 		Debug.Log ("PLAYERNAME: " + PhotonNetwork.playerName);
+
 	}
 
 	public override void OnPhotonPlayerConnected(PhotonPlayer newPLayer)
 	{
-		Debug.Log ("Second PLayer has joined");
-		if (PhotonNetwork.countOfPlayers == 2) 
-		{
-			PhotonNetwork.LoadLevel ("GameScene");
-		}
+		Debug.Log ("Second PLayer has joined, starting a new game...");
+
+		PhotonNetwork.LoadLevel("GameScene");
+
 
 	}
 
