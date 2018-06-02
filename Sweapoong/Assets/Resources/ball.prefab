@@ -135,9 +135,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PositionModel:
     SynchronizeEnabled: 1
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 1
-    InterpolateOption: 4
+    TeleportEnabled: 0
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 3
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 30
     InterpolateMoveTowardsAcceleration: 2

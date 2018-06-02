@@ -40,4 +40,6 @@ MonoBehaviour:
   - checkHealthStatus
   - moveBall
   - slowDown
+  - reduceHealth1
+  - reduceHealth2
   DisableAutoOpenWizard: 1

@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 551738607}
   - component: {fileID: 551738602}
   - component: {fileID: 551738606}
+  - component: {fileID: 551738608}
   m_Layer: 0
   m_Name: 'UpWall '
   m_TagString: WallUp
@@ -549,6 +550,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &551738608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 551738601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 551738606}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 2
+  instantiationId: 2
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &756077165
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +589,7 @@ GameObject:
   - component: {fileID: 756077171}
   - component: {fileID: 756077166}
   - component: {fileID: 756077170}
+  - component: {fileID: 756077172}
   m_Layer: 0
   m_Name: 'DownWall '
   m_TagString: WallDown
@@ -669,6 +697,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &756077172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 756077165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 756077170}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 3
+  instantiationId: 3
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &839969463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1101,7 @@ MonoBehaviour:
   wallDown: {fileID: 0}
   healthBar1: {fileID: 0}
   healthBar2: {fileID: 0}
+  view: {fileID: 0}
 --- !u!4 &1431382206
 Transform:
   m_ObjectHideFlags: 0
