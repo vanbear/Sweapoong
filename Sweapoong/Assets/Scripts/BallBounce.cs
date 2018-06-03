@@ -78,7 +78,7 @@ public class BallBounce : Photon.MonoBehaviour
                                             //Debug.Log ("Ball touched.");
                 isTouched = true;
                 startPos = Input.GetTouch(0).position;
-                view.RPC("changePossesion", PhotonTargets.All, currentArea);
+                view.RPC("changePossesion", PhotonTargets.AllViaServer, currentArea);
             }
         }
 
