@@ -21,7 +21,7 @@ public class BallBounce : MonoBehaviour
 
 	// ball propeties
 	public float startSpeed = 300.0f;
-	public float maxSpeed = 800.0f;
+	public float maxSpeed = 500.0f;
 	public float speedMultiplier = 3.0f;
 	public float currentSpeed;
 
@@ -118,6 +118,14 @@ public class BallBounce : MonoBehaviour
 		Vector2 temp = transform.InverseTransformDirection (rb.velocity).normalized;
 		rb.velocity = Vector2.zero;
 		GetComponent<Rigidbody2D> ().AddForce (temp * currentSpeed, ForceMode2D.Impulse);
+	}
+
+	public void setNewSpeed(float spd)
+	{
+		currentSpeed = spd;
+		Vector2 temp = transform.InverseTransformDirection (rb.velocity).normalized;
+		rb.velocity = Vector2.zero;
+		GetComponent<Rigidbody2D> ().AddForce (temp * spd, ForceMode2D.Impulse);
 	}
 
 }

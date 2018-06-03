@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlowdownPowerup : Powerup {
+public class MaxspeedPowerup : Powerup {
 
 	// Use this for initialization
 	void Start () {
@@ -19,11 +19,11 @@ public class SlowdownPowerup : Powerup {
 		// check if collided with ball's circleCollider (we don't want to trigger it with ball's expanded box collider)
 		if (col.gameObject.tag == "Ball" && col.GetType() == typeof(CircleCollider2D))
 		{
-			// just slow down the fucker
-			col.gameObject.GetComponent<BallBounce>().slowDown(2f);
+			col.gameObject.GetComponent<BallBounce>().setNewSpeed(600);
 
 			// destroy the pickup
 			Destroy(gameObject);		
 		}
 	}
+
 }
