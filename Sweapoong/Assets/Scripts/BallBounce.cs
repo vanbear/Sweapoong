@@ -68,36 +68,45 @@ public class BallBounce : Photon.MonoBehaviour
     [PunRPC]
 	public void touchBall()
 	{
-		Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-			if (boxCollider.OverlapPoint (wp)) 
-			{
-				//your code
-				rb.velocity = Vector2.zero; // stop ball when touched
-				//Debug.Log ("Ball touched.");
-				isTouched = true;
-				startPos = Input.GetTouch (0).position;
-                view.RPC("changePossesion", PhotonTargets.All,currentArea);
+        if (Input.touchCount > 0)
+        {
+            Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            if (boxCollider.OverlapPoint(wp))
+            {
+                //your code
+                rb.velocity = Vector2.zero; // stop ball when touched
+                                            //Debug.Log ("Ball touched.");
+                isTouched = true;
+                startPos = Input.GetTouch(0).position;
+                view.RPC("changePossesion", PhotonTargets.All, currentArea);
+            }
         }
+
+        
 	}
 
 	[PunRPC]
 	public void moveBall()
 	{
-		endPos = Input.GetTouch (0).position;
+        if (Input.touchCount > 0)
+        {
+            endPos = Input.GetTouch(0).position;
 
-		// get swipe direction and normalize
-		direction = startPos - endPos;
-		direction = direction.normalized;
+            // get swipe direction and normalize
+            direction = startPos - endPos;
+            direction = direction.normalized;
 
-		// add speed
-		currentSpeed = Mathf.Clamp(currentSpeed + speedMultiplier*(Mathf.Log(currentSpeed,2)),startSpeed,maxSpeed);
-		//Debug.Log ("Current speed: "+currentSpeed);
+            // add speed
+            currentSpeed = Mathf.Clamp(currentSpeed + speedMultiplier * (Mathf.Log(currentSpeed, 2)), startSpeed, maxSpeed);
+            //Debug.Log ("Current speed: "+currentSpeed);
 
-		// add force to ball
-		GetComponent<Rigidbody2D> ().AddForce (-direction * currentSpeed, ForceMode2D.Impulse);
+            // add force to ball
+            GetComponent<Rigidbody2D>().AddForce(-direction * currentSpeed, ForceMode2D.Impulse);
 
 
-		isTouched = false;
+            isTouched = false;
+        }
+           
 	}
 
 
