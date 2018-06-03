@@ -42,4 +42,5 @@ MonoBehaviour:
   - slowDown
   - reduceHealth1
   - reduceHealth2
+  - touchBall
   DisableAutoOpenWizard: 1

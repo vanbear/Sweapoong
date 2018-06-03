@@ -51,7 +51,7 @@ public class BallBounce : Photon.MonoBehaviour
 
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began && possesion!= currentArea) 
 			{
-                view.RPC("touchBall", PhotonTargets.All);
+                view.RPC("touchBall", PhotonTargets.MasterClient);
 
             }
 
@@ -59,7 +59,7 @@ public class BallBounce : Photon.MonoBehaviour
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true ) 
 			{
 				// get touch position
-				view.RPC("moveBall",PhotonTargets.All);
+				view.RPC("moveBall",PhotonTargets.MasterClient);
 			}
 
 
@@ -68,7 +68,6 @@ public class BallBounce : Photon.MonoBehaviour
     [PunRPC]
 	public void touchBall()
 	{
-		view.RequestOwnership ();
 		Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 			if (boxCollider.OverlapPoint (wp)) 
 			{
