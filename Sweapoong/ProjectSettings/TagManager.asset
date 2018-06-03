@@ -10,6 +10,7 @@ TagManager:
   - Area1
   - Area2
   - Canvas
+  - Powerup
   layers:
   - Default
   - TransparentFX
