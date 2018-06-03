@@ -24,19 +24,18 @@ public class ShieldPowerup : Powerup {
 			// check if the ball is actually in anybody's possesion
 			if (pos != 0)
 			{
-				/////////////////
-				// TODO:
-				// check if there is no shield already in given player's possesion
-				// if not:
-					// create shield for given player
-				// else:
-					// increase his shield's health up to 3
-				/////////////////
-				
-				
+				if (pos==1)
+				{
+					GameObject s = Instantiate (Resources.Load ("shield"), new Vector2 (0, -4.4f), Quaternion.identity) as GameObject;
+					s.GetComponent<Shield>().possesion = pos;
+				}
+				else if (pos==2)
+				{
+					GameObject s = Instantiate (Resources.Load ("shield"), new Vector2 (0, 4.4f), Quaternion.identity) as GameObject;
+					s.GetComponent<Shield>().possesion = pos;
+				}
 
 				// destroy the pickup
-				Debug.Log(pos);
 				Destroy(gameObject);
 			}
 			// nothing happens when the ball is ownerless		
