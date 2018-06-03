@@ -6,7 +6,6 @@ public class ShieldPowerup : Powerup {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Shield p-up created");
 	}
 	
 	// Update is called once per frame
