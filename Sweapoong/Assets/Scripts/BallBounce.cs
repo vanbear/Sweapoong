@@ -157,13 +157,15 @@ public class BallBounce : Photon.MonoBehaviour
 		{
 			stream.SendNext (possesion);
 			stream.SendNext (currentArea);
+            stream.SendNext(direction);
 
 
-		} 
+        } 
 		else
 		{
 			possesion = (int)stream.ReceiveNext();
 			currentArea = (int)stream.ReceiveNext();
+            direction = (Vector2)stream.ReceiveNext();
 
 		}
     }
