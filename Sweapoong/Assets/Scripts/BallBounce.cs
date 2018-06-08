@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallBounce : Photon.MonoBehaviour 
+public class BallBounce : Photon.PunBehaviour 
 {
 
 	// MODULES
@@ -51,7 +51,8 @@ public class BallBounce : Photon.MonoBehaviour
 
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began && possesion!= currentArea) 
 			{
-                view.RPC("touchBall", PhotonTargets.AllViaServer);
+                view.RequestOwnership();
+                view.RPC("touchBall", PhotonTargets.All);
 
             }
 
@@ -59,7 +60,7 @@ public class BallBounce : Photon.MonoBehaviour
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Ended && isTouched == true ) 
 			{
 				// get touch position
-				view.RPC("moveBall",PhotonTargets.AllViaServer);
+				view.RPC("moveBall",PhotonTargets.All);
 			}
 
 
@@ -78,7 +79,7 @@ public class BallBounce : Photon.MonoBehaviour
                                             //Debug.Log ("Ball touched.");
                 isTouched = true;
                 startPos = Input.GetTouch(0).position;
-                view.RPC("changePossesion", PhotonTargets.AllViaServer, currentArea);
+                view.RPC("changePossesion", PhotonTargets.All, currentArea);
             }
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerWallCollision : Photon.MonoBehaviour 
+public class PlayerWallCollision : Photon.PunBehaviour 
 {
 	
 	public int player;
@@ -37,12 +37,12 @@ public class PlayerWallCollision : Photon.MonoBehaviour
 		if (col.gameObject.tag == "Ball" && col.gameObject.GetComponent<BallBounce>().possesion == 2 && this.gameObject.tag == "WallDown" && col.gameObject.GetComponent<BallBounce> ().possesion != 0)
 		{
 			//Debug.Log ("Player " +player.ToString()+ "wall was hit");
-			view.RPC("reduceHealth1",PhotonTargets.AllViaServer);
+			view.RPC("reduceHealth1",PhotonTargets.All);
 		}
 		if (col.gameObject.tag == "Ball" && col.gameObject.GetComponent<BallBounce> ().possesion == 1 && this.gameObject.tag == "WallUp" && col.gameObject.GetComponent<BallBounce> ().possesion != 0)
 		{
 			//Debug.Log ("Player " +player.ToString()+ "wall was hit");
-			view.RPC("reduceHealth2",PhotonTargets.AllViaServer);
+			view.RPC("reduceHealth2",PhotonTargets.All);
 		}
 	}
 
@@ -53,8 +53,8 @@ public class PlayerWallCollision : Photon.MonoBehaviour
 
 		healthbar1.GetComponent<Image> ().fillAmount = (float)health1/100;
 		//healthbar.fillAmount = health / 1000;
-		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("slowDown",PhotonTargets.AllViaServer, 1.5f);
-		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("changePossesion",PhotonTargets.AllViaServer, 1);
+		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("slowDown",PhotonTargets.All, 1.5f);
+		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("changePossesion",PhotonTargets.All, 1);
 	}
 
 	[PunRPC]
@@ -64,22 +64,24 @@ public class PlayerWallCollision : Photon.MonoBehaviour
 
 		healthbar2.GetComponent<Image> ().fillAmount = (float)health2/100;
 		//healthbar.fillAmount = health / 1000;
-		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("slowDown",PhotonTargets.AllViaServer, 1.5f);
-		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("changePossesion",PhotonTargets.AllViaServer, 2);
+		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("slowDown",PhotonTargets.All, 1.5f);
+		Ball.gameObject.GetComponent<BallBounce> ().view.RPC("changePossesion",PhotonTargets.All, 2);
 	}
 
 
 
 	public void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (stream.isWriting) {
+		if (stream.isWriting)
+        {
 			
 			stream.SendNext (PlayerWallCollision.health1);
 			stream.SendNext (PlayerWallCollision.health2);
 
 
 
-		} else {
+		} else
+        {
 			
 			PlayerWallCollision.health1 = (int)stream.ReceiveNext ();
 			PlayerWallCollision.health2 = (int)stream.ReceiveNext ();
