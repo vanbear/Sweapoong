@@ -17,7 +17,7 @@ public class PlayerWallCollision : Photon.PunBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Ball = GameObject.Find("ball");
+		//Ball = GameObject.Find("ball");
 		healthbar1 = GameObject.Find("Health1");
 		healthbar2 = GameObject.Find("Health2");
 		view = GetComponent<PhotonView> ();
