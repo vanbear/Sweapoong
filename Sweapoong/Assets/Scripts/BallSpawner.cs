@@ -17,6 +17,7 @@ public class BallSpawner : Photon.PunBehaviour
 
     // countdown
     bool gameIsRunning = false;
+    bool ballInstance = false;
 
     // Use this for initialization
     void Start()
@@ -36,17 +37,41 @@ public class BallSpawner : Photon.PunBehaviour
     {
         // check and update health bars
         view.RPC("checkHealthStatus", PhotonTargets.All);
+
+        if (ballInstance == true)
+        {
+            view.RPC("setBallInstance", PhotonTargets.All);
+            ballInstance = false;
+        }
+            
         //checkHealthStatus ();
 
     }
+    [PunRPC]
+    void setBallInstance()
+    {
+        wallDown.GetComponent<PlayerWallCollision>().Ball = GameObject.FindGameObjectWithTag("Ball");//PhotonView.Find(4).gameObject;
+        wallUp.GetComponent<PlayerWallCollision>().Ball = GameObject.FindGameObjectWithTag("Ball");//PhotonView.Find(4).gameObject;
+        //wallUp.GetComponent<PlayerWallCollision>().Ball = GameObject.Find("ball");
 
+
+
+    }
+
+    
     void createBall()
     {
         // create ball object
         ball = PhotonNetwork.InstantiateSceneObject("ball", new Vector2(0, 0), Quaternion.identity, 0, null) as GameObject;
+        //ball.GetComponent<BallBounce>().view.viewID = 4;
+
         // set its tags
         ball.gameObject.tag = "Ball";
         ball.name = "ball";
+
+        //wallUp.GetComponent<PlayerWallCollision>().Ball = GameObject.Find("ball");
+        //wallDown.GetComponent<PlayerWallCollision>().Ball = GameObject.Find("ball");
+        ballInstance = true;
     }
     [PunRPC]
     void moveBall(Vector2 direction)
@@ -115,6 +140,8 @@ public class BallSpawner : Photon.PunBehaviour
 
         // create a ball, obviously
         createBall();
+        view.RPC("setBallInstance", PhotonTargets.All);
+        //view.RPC("createBall", PhotonTargets.Others);
 
         // counting loop
         int count = seconds;
@@ -140,6 +167,8 @@ public class BallSpawner : Photon.PunBehaviour
             stream.SendNext(dir);
             stream.SendNext(PlayerWallCollision.health1);
             stream.SendNext(PlayerWallCollision.health2);
+            stream.SendNext(ballInstance);
+
 
 
 
@@ -149,6 +178,7 @@ public class BallSpawner : Photon.PunBehaviour
             dir = (Vector2)stream.ReceiveNext();
             PlayerWallCollision.health1 = (int)stream.ReceiveNext();
             PlayerWallCollision.health2 = (int)stream.ReceiveNext();
+            ballInstance = (bool)stream.ReceiveNext();
 
         }
 	

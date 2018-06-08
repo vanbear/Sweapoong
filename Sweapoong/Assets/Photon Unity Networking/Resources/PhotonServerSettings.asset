@@ -43,4 +43,6 @@ MonoBehaviour:
   - reduceHealth1
   - reduceHealth2
   - touchBall
+  - createBall
+  - setBallInstance
   DisableAutoOpenWizard: 1
