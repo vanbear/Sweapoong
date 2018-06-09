@@ -58,6 +58,15 @@ public class BallSpawner : MonoBehaviour
 	{
 		if(PlayerWallCollision.health1 <= 0 || PlayerWallCollision.health2 <= 0) 
 		{
+			// destroy all existing powerups
+			GameObject[] powerups = GameObject.FindGameObjectsWithTag("Powerup");
+			foreach (GameObject p in powerups)
+			{
+				Destroy(p);
+			}
+			// reset powerup spawner
+			GameObject.Find("Spawner").GetComponent<PowerupSpawner>().resetCounter();
+
 			// refill health and update healthbars
 			PlayerWallCollision.health1 = 100;
 			PlayerWallCollision.health2 = 100;
@@ -119,11 +128,13 @@ public class BallSpawner : MonoBehaviour
 			//Debug.Log("Countdown: "+count);
 		}
 
-		// count down is finished...
+		// countdown is finished...
+		// reset powerup spawner timer 
+		GameObject.Find("Spawner").GetComponent<PowerupSpawner>().resetCounter();
 		// destroy countdown objects and arrow
 		Destroy(countdown1);
-		Destroy (countdown2);
-		Destroy (arrow);
+		Destroy(countdown2);
+		Destroy(arrow);
 		// and move the ball
 		moveBall(dir);
 		gameIsRunning = true;

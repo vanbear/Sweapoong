@@ -17,7 +17,7 @@ public class ShieldPowerup : Powerup {
 	{
 		// check if collided with ball's circleCollider (we don't want to trigger it with ball's expanded box collider)
 		if (col.gameObject.tag == "Ball" && col.GetType() == typeof(CircleCollider2D))
-		{
+		{	
 			// get current ball's possesion
 			int pos = col.gameObject.GetComponent<BallBounce>().possesion;
 			// check if the ball is actually in anybody's possesion
@@ -25,12 +25,12 @@ public class ShieldPowerup : Powerup {
 			{
 				if (pos==1)
 				{
-					GameObject s = Instantiate (Resources.Load ("shield"), new Vector2 (0, -4.4f), Quaternion.identity) as GameObject;
+					GameObject s = Instantiate (Resources.Load ("Powerups/shield"), new Vector2 (0, -4.4f), Quaternion.identity) as GameObject;
 					s.GetComponent<Shield>().possesion = pos;
 				}
 				else if (pos==2)
 				{
-					GameObject s = Instantiate (Resources.Load ("shield"), new Vector2 (0, 4.4f), Quaternion.identity) as GameObject;
+					GameObject s = Instantiate (Resources.Load ("Powerups/shield"), new Vector2 (0, 4.4f), Quaternion.identity) as GameObject;
 					s.GetComponent<Shield>().possesion = pos;
 				}
 

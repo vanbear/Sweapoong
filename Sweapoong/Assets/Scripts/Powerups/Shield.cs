@@ -6,7 +6,7 @@ public class Shield : MonoBehaviour {
 	// Use this for initialization
 
 	// lifespan
-	float timeLeft = 2;
+	public float lifespan = 3;
 	public int possesion;
 	void Start () {
 		
@@ -15,15 +15,15 @@ public class Shield : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// decrease timeleft
-		timeLeft -= Time.deltaTime;
+		lifespan -= Time.deltaTime;
 
 		// change opacity
 		Color c = this.gameObject.GetComponent<SpriteRenderer>().color;
-		c.a = timeLeft;
+		c.a = lifespan;
 		this.gameObject.GetComponent<SpriteRenderer>().color = c;
 
 		// destroy 
-		if ( timeLeft < 0 )
+		if ( lifespan < 0 )
 		{
 			Destroy(gameObject);
 		}
