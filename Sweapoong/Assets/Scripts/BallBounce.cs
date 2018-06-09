@@ -22,7 +22,7 @@ public class BallBounce : MonoBehaviour
 	// ball propeties
 	public float startSpeed = 300.0f;
 	public float maxSpeed = 500.0f;
-	public float speedMultiplier = 3.0f;
+	public float speedMultiplier = 4.0f;
 	public float currentSpeed;
 
 	//Player possesion and current area
